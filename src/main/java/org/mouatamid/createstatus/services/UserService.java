@@ -25,4 +25,10 @@ public class UserService {
         User userToLoginIn = userRepository.findByUsername(userName);
         return userToLoginIn != null ? userToLoginIn.getPassword().equals(password) : false;
     }
+
+    //Find user by username
+    @Transactional
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 }
