@@ -24,4 +24,16 @@ public class StatusManipulationController {
         Status status = new Status(title,content,user);
         return statusManipulationService.createStatus(status) ? status.toString() : "Cannot create status !";
     }
+    @PutMapping
+    public @ResponseBody String updateStatus(@RequestParam Integer id, @RequestParam String content){
+        Status status = statusManipulationService.findStatus(id);
+        if (status != null){
+            status.setContent(content);
+            statusManipulationService.updateStatus(status);
+            return status.toString();
+        }
+        else {
+            return "Couldn't update the status !";
+        }
+    }
 }
