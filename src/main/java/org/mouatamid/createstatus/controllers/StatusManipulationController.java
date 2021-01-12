@@ -5,6 +5,7 @@ import org.mouatamid.createstatus.models.User;
 import org.mouatamid.createstatus.services.StatusManipulationService;
 import org.mouatamid.createstatus.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,5 +36,12 @@ public class StatusManipulationController {
         else {
             return "Couldn't update the status !";
         }
+    }
+    @DeleteMapping
+    public @ResponseBody
+    HttpStatus deleteStatus(@RequestParam Integer id){
+        Status statusToBeDeleted = statusManipulationService.findStatus(id);
+        Boolean result = statusManipulationService.deleteStatus(statusToBeDeleted);
+        return result ? HttpStatus.OK : HttpStatus.NOT_FOUND;
     }
 }

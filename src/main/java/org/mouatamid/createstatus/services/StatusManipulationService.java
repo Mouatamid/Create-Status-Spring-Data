@@ -33,4 +33,15 @@ public class StatusManipulationService {
     public boolean updateStatus(Status status){
         return statusRepository.save(status) != null;
     }
+    //Delete status
+    @Transactional
+    public boolean deleteStatus(Status status) throws IllegalArgumentException{
+        try {
+            statusRepository.delete(status);
+            return true;
+
+        } catch (IllegalArgumentException e){
+            return false;
+        }
+    }
 }
