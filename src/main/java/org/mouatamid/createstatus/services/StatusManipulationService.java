@@ -41,6 +41,7 @@ public class StatusManipulationService {
             return true;
 
         } catch (IllegalArgumentException e){
+            e.printStackTrace();
             return false;
         }
     }

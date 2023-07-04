@@ -1,13 +1,12 @@
 package org.mouatamid.createstatus.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_info")
 public class User {
     @Id
-    @Column(name = "id")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
@@ -19,10 +18,8 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "password")
+    @Column(name = "user_password")
     private String password;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Status> statuses;
 
     public User() {
     }
@@ -81,14 +78,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Status> getStatuses() {
-        return statuses;
-    }
-
-    public void setStatuses(List<Status> statuses) {
-        this.statuses = statuses;
     }
 
     @Override

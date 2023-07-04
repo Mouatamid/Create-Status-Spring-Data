@@ -6,6 +6,7 @@ import org.mouatamid.createstatus.services.StatusManipulationService;
 import org.mouatamid.createstatus.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,9 +40,18 @@ public class StatusManipulationController {
     }
     @DeleteMapping
     public @ResponseBody
-    HttpStatus deleteStatus(@RequestParam Integer id){
+    HttpStatus deleteStatus(@RequestParam Integer id) throws IllegalArgumentException{
         Status statusToBeDeleted = statusManipulationService.findStatus(id);
-        Boolean result = statusManipulationService.deleteStatus(statusToBeDeleted);
-        return result ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        try {
+            statusManipulationService.deleteStatus(statusToBeDeleted);
+            return HttpStatus.OK;
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return HttpStatus.NOT_FOUND;
+        }
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(){
+        return new ResponseEntity<>("Cannot delete the status",HttpStatus.NOT_FOUND);
     }
 }

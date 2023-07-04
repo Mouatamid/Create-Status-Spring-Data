@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "status")
 public class Status {
     @Id
-    @Column(name = "id")
+    @Column(name = "status_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
@@ -16,7 +16,6 @@ public class Status {
     private String content;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user")
     private User user;
 
     public Status() {
